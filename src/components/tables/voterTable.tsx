@@ -12,8 +12,10 @@ export const VoterTable = (props: { data: any }) => {
             <th className="py-3 px-6 text-left">Title</th>
             <th className="py-3 px-6 text-left">Time</th>
             <th className="py-3 px-6 text-left">Result</th>
-            <th className="py-3 px-6 text-left">Participation by Stake</th>
-            <th className="py-3 px-6 text-left">Participation by Users</th>
+            <th className="py-3 px-6 text-left">Participation by stake size</th>
+            <th className="py-3 px-6 text-left">
+              Participation by individual stakers
+            </th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200 dark:divide-black">
