@@ -28,7 +28,9 @@ export const VoterTable = (props: { data: any }) => {
                 {new Date(item.time * 1000).toISOString()}
               </td>
               <td className="py-4 px-6 max-w-xs overflow-hidden whitespace-nowrap">
-                {formatVoteString(item.price, item.identifier.id)}
+                {item.price
+                  ? formatVoteString(item.price, item.identifier.id)
+                  : "-"}
               </td>
               <td className="py-4 px-6">
                 {item.isResolved
