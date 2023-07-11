@@ -36,9 +36,10 @@ export default function Page() {
 
   return (
     <div className="flex flex-col justify-center min-h-screen py-2">
-      <h1 className="text-4xl font-bold self-center">UMA Voting</h1>
-      <h2 className="text-2xl font-bold self-center">Users</h2>
-      {"CummulativeStake: " + data.globals[0].cumulativeStake}
+      <h1 className="text-2xl font-bold self-center">Users</h1>
+      <p className="m-2">
+        {"CummulativeStake: " + data.globals[0].cumulativeStake}
+      </p>
       <UsersTable data={data} />
       Total Users: {data.users.length}
     </div>

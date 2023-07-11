@@ -8,10 +8,23 @@ export default function Home() {
       {
         priceRequests(first: 1000, orderBy: time, orderDirection: desc) {
           id
+          identifier {
+            id
+          }
           ancillaryData
           time
           price
           resolutionBlock
+          isResolved
+          latestRound {
+            id
+            votersAmount
+            cumulativeStakeAtRound
+            countWrongVotes
+            countCorrectVotes
+            countNoVotes
+            totalVotesRevealed
+          }
         }
       }
     `
@@ -26,9 +39,8 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col justify-center min-h-screen py-2">
-      <h1 className="text-4xl font-bold self-center">UMA Voting</h1>
-      <h2 className="text-2xl font-bold self-center">Voting Results</h2>
+    <div className="flex flex-col py-2">
+      <h1 className="text-2xl font-bold self-center">Voting Results</h1>
       <VoterTable data={data} />
     </div>
   );

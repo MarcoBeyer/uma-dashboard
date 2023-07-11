@@ -2,7 +2,7 @@ import { round } from "lodash-es";
 
 export const RoundsTable = (props: { data: any }) => {
   return (
-    <table className="min-w-full divide-y divide-gray-200">
+    <table className="divide-y divide-gray-200 dark:divide-black">
       <thead>
         <tr>
           <th className="py-3 px-6 text-left">Voters</th>
@@ -13,7 +13,7 @@ export const RoundsTable = (props: { data: any }) => {
           <th className="py-3 px-6 text-left">Participation by Users</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className="divide-y divide-gray-200 dark:divide-black">
         {props.data.priceRequest?.rounds.map((element: any) => (
           <tr key={element.id}>
             <td className="py-4 px-6">{element.votersAmount}</td>

@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.16",
+    "@ethersproject/bignumber": "^5.7.0",
+    "@headlessui/react": "^1.7.15",
+    "@heroicons/react": "^2.0.18",
     "@types/lodash-es": "^4.17.7",
     "@types/node": "20.4.0",
     "@types/react": "18.2.14",
