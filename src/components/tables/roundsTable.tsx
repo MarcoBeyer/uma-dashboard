@@ -9,8 +9,10 @@ export const RoundsTable = (props: { data: any }) => {
           <th className="py-3 px-6 text-left">Correct Votes</th>
           <th className="py-3 px-6 text-left">Wrong Votes</th>
           <th className="py-3 px-6 text-left">Not Voted</th>
-          <th className="py-3 px-6 text-left">Participation by Stake</th>
-          <th className="py-3 px-6 text-left">Participation by Users</th>
+          <th className="py-3 px-6 text-left">Participation by stake size</th>
+          <th className="py-3 px-6 text-left">
+            Participation by individual stakers
+          </th>
         </tr>
       </thead>
       <tbody className="divide-y divide-gray-200 dark:divide-black">
