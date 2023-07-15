@@ -1,48 +1,52 @@
 import { round } from "lodash-es";
+import { DataTable } from "./table";
+import { Column } from "./tableColumn";
 
-export const RoundsTable = (props: { data: any }) => {
+export const RoundsTable = (props: { data: any; className?: string }) => {
   return (
-    <table className="divide-y divide-gray-200 dark:divide-black">
-      <thead>
-        <tr>
-          <th className="py-3 px-6 text-left">Voters</th>
-          <th className="py-3 px-6 text-left">Correct Votes</th>
-          <th className="py-3 px-6 text-left">Wrong Votes</th>
-          <th className="py-3 px-6 text-left">Not Voted</th>
-          <th className="py-3 px-6 text-left">Participation by stake size</th>
-          <th className="py-3 px-6 text-left">
-            Participation by individual stakers
-          </th>
-        </tr>
-      </thead>
-      <tbody className="divide-y divide-gray-200 dark:divide-black">
-        {props.data.priceRequest?.rounds.map((element: any) => (
-          <tr key={element.id}>
-            <td className="py-4 px-6">{element.votersAmount}</td>
-            <td className="py-4 px-6">{element.countCorrectVotes}</td>
-            <td className="py-4 px-6">{element.countWrongVotes}</td>
-            <td className="py-4 px-6">{element.countNoVotes}</td>
-            <td className="py-4 px-6">
-              {props.data.priceRequest.isResolved
-                ? round(
-                    element.totalVotesRevealed / element.cumulativeStakeAtRound,
-                    2
-                  )
-                : "-"}
-            </td>
-            <td className="py-4 px-6">
-              {props.data.priceRequest.isResolved
-                ? round(
-                    element.votersAmount /
-                      (Number(element.votersAmount) +
-                        Number(element.countNoVotes)),
-                    2
-                  )
-                : "-"}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <DataTable
+      data={props.data.priceRequest.rounds}
+      dataKey="id"
+      className={props.className}
+    >
+      <Column field="votersAmount" header="Voters" />
+      <Column field="countCorrectVotes" header="Correct Votes" />
+      <Column field="countWrongVotes" header="Wrong Votes" />
+      <Column field="countNoVotes" header="Not Voted" />
+      <Column
+        field="participationByStakeSize"
+        header="Participation by stake size"
+        body={(rowData) => {
+          return rowData.totalVotesRevealed
+            ? round(
+                rowData.totalVotesRevealed / rowData.cumulativeStakeAtRound,
+                2
+              )
+            : "-";
+        }}
+      />
+      <Column
+        field="participationByIndividualUsers"
+        header="Participation by individual users"
+        body={(rowData) =>
+          rowData.totalVotesRevealed
+            ? round(
+                rowData.votersAmount /
+                  (Number(rowData.votersAmount) + Number(rowData.countNoVotes)),
+                2
+              )
+            : "-"
+        }
+      />
+      <Column
+        field="participationByIndividualStakers"
+        header="Participation by individual stakers"
+        body={(rowData) =>
+          rowData.totalVotesRevealed
+            ? round(rowData.votersAmount / props.data.users.length, 2)
+            : "-"
+        }
+      />
+    </DataTable>
   );
 };

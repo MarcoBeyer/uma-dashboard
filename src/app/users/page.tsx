@@ -11,6 +11,7 @@ export default function Page() {
       query {
         globals(first: 1) {
           cumulativeStake
+          userAddresses
         }
         users(
           first: 1000
@@ -35,12 +36,14 @@ export default function Page() {
   }
 
   return (
-    <div className="flex flex-col justify-center min-h-screen py-2">
-      <h1 className="text-2xl font-bold self-center">Users</h1>
+    <div className="min-h-screen py-2">
+      <h1 className="text-2xl font-bold text-center">Users</h1>
       <p className="ml-6 mt-3">
         {"Cummulative stake: " + round(data.globals[0].cumulativeStake, 2)}
         <br />
-        Total Users: {data.users.length}
+        Total Users: {data.globals[0].userAddresses.length}
+        <br />
+        Total Users with Stake: {data.users.length}
       </p>
       <UsersTable data={data} />
     </div>

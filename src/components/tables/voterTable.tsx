@@ -6,16 +6,13 @@ import Link from "next/link";
 export const VoterTable = (props: { data: any }) => {
   return (
     <>
-      <table className="divide-y divide-gray-200 dark:divide-gray-900">
+      <table className="divide-y divide-gray-200 dark:divide-gray-900 overflow-x-auto block">
         <thead>
           <tr>
             <th className="py-3 px-6 text-left">Title</th>
             <th className="py-3 px-6 text-left">Time</th>
             <th className="py-3 px-6 text-left">Result</th>
             <th className="py-3 px-6 text-left">Participation by stake size</th>
-            <th className="py-3 px-6 text-left">
-              Participation by individual stakers
-            </th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200 dark:divide-black">
@@ -39,16 +36,6 @@ export const VoterTable = (props: { data: any }) => {
                   ? round(
                       item.latestRound.totalVotesRevealed /
                         item.latestRound.cumulativeStakeAtRound,
-                      2
-                    )
-                  : "-"}
-              </td>
-              <td className="py-4 px-6">
-                {item.isResolved
-                  ? round(
-                      item.latestRound.votersAmount /
-                        (Number(item.latestRound.votersAmount) +
-                          Number(item.latestRound.countNoVotes)),
                       2
                     )
                   : "-"}

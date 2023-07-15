@@ -1,9 +1,7 @@
 "use client";
-import Image from "next/image";
-import { Fragment, useState } from "react";
-import { Dialog, Popover, Transition } from "@headlessui/react";
+import { useState } from "react";
+import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 
 export const Header = (props: { title: string; menuItems: MenuItem[] }) => {
@@ -12,7 +10,7 @@ export const Header = (props: { title: string; menuItems: MenuItem[] }) => {
   return (
     <header>
       <nav
-        className="mx-auto flex items-center justify-between p-6 dark:bg-gray-950"
+        className="mx-auto flex items-center justify-between p-6"
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
@@ -70,6 +68,7 @@ export const Header = (props: { title: string; menuItems: MenuItem[] }) => {
                   <Link
                     href={item.href}
                     key={item.title}
+                    onClick={() => setMobileMenuOpen(false)}
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-gray-100 dark:hover:text-black"
                   >
                     {item.title}

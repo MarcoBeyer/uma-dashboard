@@ -3,7 +3,7 @@ import { round } from "lodash-es";
 export const UsersTable = (props: { data: any }) => {
   return (
     <>
-      <table className="divide-y divide-gray-200 dark:divide-black">
+      <table className="divide-y divide-gray-200 dark:divide-black block overflow-x-auto">
         <thead>
           <tr>
             <th className="py-3 px-6 text-left">Staker Adress</th>

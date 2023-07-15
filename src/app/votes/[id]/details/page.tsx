@@ -35,7 +35,22 @@ export default function Page({ params }: { params: { id: string } }) {
     `
   );
 
-  if (loading) {
+  const {
+    loading: loadingUsers,
+    error: errorUsers,
+    data: usersRound,
+  } = useQuery(
+    gql`
+      query {
+        users(size: 1000, where: { voterStake_gt: 0 }, block: { number: ${data?.priceRequest.resolutionBlock} }) {
+          id
+        }
+      }
+    `,
+    { skip: !data?.priceRequest.resolutionBlock }
+  );
+
+  if (loading || loadingUsers) {
     return <p>Loading...</p>;
   }
 
@@ -43,16 +58,24 @@ export default function Page({ params }: { params: { id: string } }) {
     return <p>Error: {error.message}</p>;
   }
 
+  if (errorUsers) {
+    return <p>Error: {errorUsers.message}</p>;
+  }
+
   return (
-    <div className="flex flex-col min-h-screen py-2">
-      <h1 className="text-4xl font-bold self-center">UMA Voting</h1>
-      <h2 className="text-2xl font-bold self-center">Voting Results</h2>
+    <div className="min-h-screen py-2">
+      <h2 className="text-2xl font-bold text-center">Voting Results</h2>
       <h3 className="text-xl font-bold mt-2">
         {parseTitle(toUtf8String(data.priceRequest?.ancillaryData))}
       </h3>
-      Description: <br />
-      {parseDescription(toUtf8String(data.priceRequest?.ancillaryData))}
-      <RoundsTable data={data} />
+      <p className="text-ellipsis break-words">
+        Description: <br />
+        {parseDescription(toUtf8String(data.priceRequest?.ancillaryData))}
+      </p>
+      <RoundsTable
+        data={{ ...data, ...usersRound }}
+        className="overflow-x-auto block"
+      />
     </div>
   );
 }

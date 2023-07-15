@@ -5,7 +5,7 @@ import { VoterTable } from "@/components/tables/voterTable";
 export default function Home() {
   const { loading, error, data } = useQuery(
     gql`
-      {
+      query {
         priceRequests(first: 1000, orderBy: time, orderDirection: desc) {
           id
           identifier {
@@ -39,8 +39,8 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col py-2">
-      <h1 className="text-2xl font-bold self-center">Voting Results</h1>
+    <div className="py-2">
+      <h1 className="text-2xl font-bold text-center">Voting Results</h1>
       <VoterTable data={data} />
     </div>
   );
