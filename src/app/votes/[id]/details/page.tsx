@@ -42,7 +42,7 @@ export default function Page({ params }: { params: { id: string } }) {
   } = useQuery(
     gql`
       query {
-        users(size: 1000, where: { voterStake_gt: 0 }, block: { number: ${data?.priceRequest.resolutionBlock} }) {
+        users(first: 1000, where: { voterStake_gt: 0 }, block: { number: ${data?.priceRequest.resolutionBlock} }) {
           id
         }
       }
