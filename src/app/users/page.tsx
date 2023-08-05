@@ -4,6 +4,8 @@ import { useQuery, gql } from "@apollo/client";
 import { round } from "lodash-es";
 import Link from "next/link";
 import { UsersTable } from "@/components/tables/usersTable";
+import { DetailsList } from "@/components/details/detailsList";
+import { DetailsRow } from "@/components/details/detailsRow";
 
 export default function Page() {
   const { loading, error, data } = useQuery(
@@ -38,12 +40,28 @@ export default function Page() {
   return (
     <div className="min-h-screen py-2">
       <h1 className="text-2xl font-bold text-center">Users</h1>
-      <p className="ml-6 mt-3">
-        {"Cummulative stake: " + round(data.globals[0].cumulativeStake, 2)}
-        <br />
-        Total Users: {data.globals[0].userAddresses.length}
-        <br />
-        Total Users with Stake: {data.users.length}
+      <p className="m-3">
+        <DetailsList>
+          <DetailsRow
+            title="Cummulative stake"
+            value={round(data.globals[0].cumulativeStake, 2)}
+          />
+          <DetailsRow
+            title="Average stake"
+            value={round(
+              data.globals[0].cumulativeStake / data.users.length,
+              2
+            )}
+          />
+          <DetailsRow
+            title="Total Users"
+            value={data.globals[0].userAddresses.length}
+          />
+          <DetailsRow
+            title="Total Users with Stake"
+            value={data.users.length}
+          />
+        </DetailsList>
       </p>
       <UsersTable data={data} />
     </div>

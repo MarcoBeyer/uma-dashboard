@@ -2,20 +2,36 @@
 import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import Image from "next/image";
 import Link from "next/link";
 
 export const Header = (props: { title: string; menuItems: MenuItem[] }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header>
+    <header className="bg-white dark:bg-black sticky top-0 z-40 w-full border-b">
       <nav
         className="mx-auto flex items-center justify-between p-6"
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
           <div className="-m-1.5 p-1.5">
-            <Link href={"/"}>UMA Dashboard</Link>
+            <Link href={"/"}>
+              <Image
+                src="/logos/logo.png"
+                className="block dark:hidden"
+                alt="UMA Dashboard Logo"
+                width={200}
+                height={26}
+              />
+              <Image
+                src="/logos/logo-dark.png"
+                className="hidden dark:block"
+                alt="UMA Dashboard Logo"
+                width={200}
+                height={26}
+              />
+            </Link>
           </div>
         </div>
         <div className="flex lg:hidden">
@@ -46,8 +62,8 @@ export const Header = (props: { title: string; menuItems: MenuItem[] }) => {
         open={mobileMenuOpen}
         onClose={setMobileMenuOpen}
       >
-        <div className="fixed inset-0 z-10" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-black px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        <div className="fixed inset-0 z-50" />
+        <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-black px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
             <div className="-m-1.5 p-1.5">
               <Link href={"/"}>UMA Dashboard</Link>
