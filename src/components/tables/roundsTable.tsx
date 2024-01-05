@@ -17,7 +17,7 @@ export const RoundsTable = (props: { data: any; className?: string }) => {
         field="participationByStakeSize"
         header="Participation by stake size"
         body={(rowData) => {
-          return rowData.totalVotesRevealed
+          return rowData.totalVotesRevealed && rowData.cumulativeStakeAtRound
             ? round(
                 rowData.totalVotesRevealed / rowData.cumulativeStakeAtRound,
                 2
@@ -29,7 +29,9 @@ export const RoundsTable = (props: { data: any; className?: string }) => {
         field="participationByIndividualUsers"
         header="Participation by individual users"
         body={(rowData) =>
-          rowData.totalVotesRevealed
+          rowData.totalVotesRevealed &&
+          Number(rowData.countNoVotes) &&
+          Number(rowData.votersAmount)
             ? round(
                 rowData.votersAmount /
                   (Number(rowData.votersAmount) + Number(rowData.countNoVotes)),
@@ -42,7 +44,7 @@ export const RoundsTable = (props: { data: any; className?: string }) => {
         field="participationByIndividualStakers"
         header="Participation by individual stakers"
         body={(rowData) =>
-          rowData.totalVotesRevealed
+          rowData.totalVotesRevealed && props.data.users
             ? round(rowData.votersAmount / props.data.users.length, 2)
             : "-"
         }

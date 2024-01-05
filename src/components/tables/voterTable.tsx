@@ -44,7 +44,7 @@ export const VoterTable = (props: { data: any }) => {
           ))}
         </tbody>
       </table>
-      Total Votes: {props.data.priceRequests.length}
+      Total Votes: {props.data.priceRequests?.length || 'Not Available'}
     </>
   );
 };
