@@ -40,7 +40,7 @@ export default function Page() {
   return (
     <div className="min-h-screen py-2">
       <h1 className="text-2xl font-bold text-center">Users</h1>
-      <p className="m-3">
+      <div className="m-3">
         <DetailsList>
           <DetailsRow
             title="Cummulative stake"
@@ -62,7 +62,7 @@ export default function Page() {
             value={data.users.length}
           />
         </DetailsList>
-      </p>
+      </div>
       <UsersTable data={data} />
     </div>
   );
