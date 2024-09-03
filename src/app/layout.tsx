@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description: "UMA Dashboard",
 };
 
-export const menuItems: MenuItem[] = [
+const menuItems: MenuItem[] = [
   { title: "Users", href: "/users" },
   { title: "Votes", href: "/votes" },
 ];

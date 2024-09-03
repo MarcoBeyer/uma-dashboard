@@ -1,11 +1,19 @@
 "use client";
 import { useState } from "react";
-import { Dialog } from "@headlessui/react";
+import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 
-export const Header = (props: { title: string; menuItems: MenuItem[] }) => {
+export type MenuItem = {
+  title: string;
+  href: string;
+};
+
+export const Header = (props: {
+  title: string;
+  menuItems: MenuItem[];
+}) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -63,7 +71,7 @@ export const Header = (props: { title: string; menuItems: MenuItem[] }) => {
         onClose={setMobileMenuOpen}
       >
         <div className="fixed inset-0 z-50" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-black px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-black px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
             <div className="-m-1.5 p-1.5">
               <Link href={"/"}>UMA Dashboard</Link>
@@ -93,13 +101,9 @@ export const Header = (props: { title: string; menuItems: MenuItem[] }) => {
               </div>
             </div>
           </div>
-        </Dialog.Panel>
+        </DialogPanel>
       </Dialog>
     </header>
   );
 };
 
-export type MenuItem = {
-  title: string;
-  href: string;
-};
