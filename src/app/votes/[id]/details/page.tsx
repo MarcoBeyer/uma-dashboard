@@ -1,66 +1,18 @@
-"use client";
-
 import { toUtf8String } from "ethers";
-import { useQuery, gql } from "@apollo/client";
 import { parseDescription, parseTitle } from "@/helpers/getVoteMetadata";
 import { RoundsTable } from "@/components/tables/roundsTable";
+import { getVoteDetails, getUsersAtBlock } from "@/lib/graphql";
 
-export default function Page({ params }: { params: { id: string } }) {
-  const { loading, error, data } = useQuery(
-    gql`
-      query {
-        globals(first: 1) {
-          cumulativeStake
-        }
-        priceRequest(
-          id: "${decodeURIComponent(params.id)}"
-        ) {
-          id
-          ancillaryData
-          isResolved
-          time
-          price
-          resolutionBlock
-          rounds {
-            id
-            votersAmount
-            cumulativeStakeAtRound
-            countWrongVotes
-            countCorrectVotes
-            countNoVotes
-            totalVotesRevealed
-          }
-        }
-      }
-    `
-  );
+export const dynamic = "force-dynamic";
 
-  const {
-    loading: loadingUsers,
-    error: errorUsers,
-    data: usersRound,
-  } = useQuery(
-    gql`
-      query {
-        users(first: 1000, where: { voterStake_gt: 0 }, block: { number: ${data?.priceRequest.resolutionBlock} }) {
-          id
-        }
-      }
-    `,
-    { skip: !data?.priceRequest.resolutionBlock }
-  );
-
-  if (loading || loadingUsers) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {error.message}</p>;
-  }
-
-  if (errorUsers) {
-    return <p>Error: {errorUsers.message}</p>;
-  }
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const data = await getVoteDetails(decodeURIComponent(id));
+  const usersRound = await getUsersAtBlock(data.priceRequest.resolutionBlock);
 
   return (
     <div className="min-h-screen py-2">

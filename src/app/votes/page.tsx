@@ -1,42 +1,10 @@
-"use client";
-import { useQuery, gql } from "@apollo/client";
 import { VoterTable } from "@/components/tables/voterTable";
+import { getVotes } from "@/lib/graphql";
 
-export default function Home() {
-  const { loading, error, data } = useQuery(
-    gql`
-      query {
-        priceRequests(first: 1000, orderBy: time, orderDirection: desc) {
-          id
-          identifier {
-            id
-          }
-          ancillaryData
-          time
-          price
-          resolutionBlock
-          isResolved
-          latestRound {
-            id
-            votersAmount
-            cumulativeStakeAtRound
-            countWrongVotes
-            countCorrectVotes
-            countNoVotes
-            totalVotesRevealed
-          }
-        }
-      }
-    `
-  );
+export const dynamic = "force-dynamic";
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {error.message}</p>;
-  }
+export default async function Home() {
+  const data = await getVotes();
 
   return (
     <div className="py-2">

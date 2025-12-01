@@ -1,41 +1,13 @@
-"use client";
-import { useState } from "react";
-import { useQuery, gql } from "@apollo/client";
 import { round } from "lodash-es";
-import Link from "next/link";
 import { UsersTable } from "@/components/tables/usersTable";
 import { DetailsList } from "@/components/details/detailsList";
 import { DetailsRow } from "@/components/details/detailsRow";
+import { getUsers } from "@/lib/graphql";
 
-export default function Page() {
-  const { loading, error, data } = useQuery(
-    gql`
-      query {
-        globals(first: 1) {
-          cumulativeStake
-          userAddresses
-        }
-        users(
-          first: 1000
-          where: { voterStake_gt: 0 }
-          orderBy: voterStake
-          orderDirection: desc
-          skip: 0
-        ) {
-          address
-          voterStake
-        }
-      }
-    `
-  );
+export const dynamic = "force-dynamic";
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {error.message}</p>;
-  }
+export default async function Page() {
+  const data = await getUsers();
 
   return (
     <div className="min-h-screen py-2">
