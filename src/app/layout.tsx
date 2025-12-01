@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body className={inter.className}>
         <Header title={metadata.title as string} menuItems={menuItems} />
         <div className="p-4">{children}</div>
